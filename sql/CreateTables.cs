@@ -11,7 +11,7 @@ namespace AnimalZooApp.sql
             {
                 using var conn = new NpgsqlConnection(connString);
                 conn.Open();
-                Console.WriteLine("Connected to the PostgreSQL database successfully.");
+                Console.WriteLine("CreateSpeciesTable Connected to the PostgreSQL database successfully.");
 
                 string createSpecies = @"
                 CREATE TABLE IF NOT EXISTS species(
@@ -28,6 +28,28 @@ namespace AnimalZooApp.sql
             }
         }
 
+        public static void CreateHabitatTable(string connString)
+        {
+            try
+            {
+                using var conn = new NpgsqlConnection(connString);
+                conn.Open();
+                Console.WriteLine("CreateHabitatTable Connected to the PostgreSQL database successfully.");
+                string createHabitatTable = @"
+                CREATE TABLE IF NOT EXISTS habitats(
+                id SERIAL PRIMARY KEY,
+                name VARCHAR(50) NOT NULL);";
+                using var cmd = new NpgsqlCommand(createHabitatTable, conn);
+                cmd.ExecuteNonQuery();
+                Console.WriteLine("Habitat table created successfully.");
+            }
+            catch (NpgsqlException ex)
+            {
+                Console.WriteLine($"Error creating habitat table: {ex.Message}");
+                return;
+            }
+        }
+
 
         public static void CreateAnimalTable(string connString)
         {
@@ -35,7 +57,7 @@ namespace AnimalZooApp.sql
             {
                 using var conn = new NpgsqlConnection(connString);
                 conn.Open();
-                Console.WriteLine("Connected to the PostgreSQL database successfully.");
+                Console.WriteLine("CreateAnimalTable Connected to the PostgreSQL database successfully.");
 
                 string createAnimals = @"
                 CREATE TABLE IF NOT EXISTS animals(
@@ -56,7 +78,7 @@ namespace AnimalZooApp.sql
 
         }
 
-        public static void Create
+
 
     }
 }

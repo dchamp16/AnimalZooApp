@@ -1,3 +1,4 @@
+using Microsoft.VisualBasic;
 using Npgsql;
 
 
@@ -50,7 +51,7 @@ namespace AnimalZooApp.sql
             }
         }
 
-        //TODO: NEED TO TEST THIS
+        //TODO : NEED TO TEST THIS
         public static void CreateKeepersTable(string connString)
         {
             try
@@ -72,7 +73,6 @@ namespace AnimalZooApp.sql
                 return;
             }
         }
-
 
         public static void CreateAnimalTable(string connString)
         {
@@ -101,6 +101,34 @@ namespace AnimalZooApp.sql
 
         }
 
+        //TODO : NEED TO TEST THIS
+        public static void CreateFeedingTable(string connString)
+        {
+            try
+            {
+                using var conn = new NpgsqlConnection(connString);
+                conn.Open();
+                Console.WriteLine("CreateFeedingTable Connected to the PostgreSQL database Succefully.");
+                string createFeedingTable = @"
+                CREATE TABLE feedings(
+                id Serial PRIMARY KEY,
+                animal_id INT NOT NULL REFERENCES animals(id),
+                keeper_id INT NOT NULL REFERENCES keepers(id),
+                food VARCHAT(50),
+                fed_at TIMESTAMP DEFAULT NOW()
+                );
+                ";
+                using var cmd = new NpgsqlCommand(createFeedingTable, conn);
+                cmd.ExecuteNonQuery();
+                Console.WriteLine("Feeding table created successfully.");
+
+            }
+            catch (NpgsqlException ex)
+            {
+                Console.WriteLine($"Error creating feeding table: {ex.Message}");
+                return;
+            }
+        }
 
 
     }

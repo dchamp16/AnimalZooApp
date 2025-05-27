@@ -50,6 +50,29 @@ namespace AnimalZooApp.sql
             }
         }
 
+        //TODO: NEED TO TEST THIS
+        public static void CreateKeepersTable(string connString)
+        {
+            try
+            {
+                using var conn = new NpgsqlConnection(connString);
+                conn.Open();
+                Console.WriteLine("CreateKeepersTable Connected to the PostgreSQL database successfully.");
+                string createKeepersTable = @"
+                CREATE TABLE keepers(
+                id SERIAL PRIMARY KEY,
+                name VARCHAR(50) NOT NULL);";
+                using var cmd = new NpgsqlCommand(createKeepersTable, conn);
+                cmd.ExecuteNonQuery();
+                Console.WriteLine("Keepers table created successfully.");
+            }
+            catch (NpgsqlException ex)
+            {
+                Console.WriteLine($"Error creating keepers table: {ex.Message}");
+                return;
+            }
+        }
+
 
         public static void CreateAnimalTable(string connString)
         {

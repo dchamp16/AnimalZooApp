@@ -22,8 +22,17 @@ class Program
         var zooConnString = $"Host={host};Port={port};Username={username};Password={password};Database={dbName};";
 
         Console.WriteLine("Connecting to the PostgreSQL server...");
-        CreateDB.EnsureDatabase(adminConnString, dbName);
-        CreateTables.CreateAnimalTable(zooConnString);
+        // CreateDB.EnsureDatabase(adminConnString, dbName);
+        // CreateTables.CreateAnimalTable(zooConnString);
+        // CreateTables.CreateSpeciesTable(zooConnString);
+        // CreateTables.CreateHabitatTable(zooConnString);
+        // CreateTables.CreateKeepersTable(zooConnString);
+        // CreateTables.CreateFeedingTable(zooConnString);
+        // Console.WriteLine("All tables created successfully.");
+
+        TestTable.SelectAllTablesTest(zooConnString);
+        Console.WriteLine("All tables selected successfully.");
+
 
 
 

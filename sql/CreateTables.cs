@@ -20,7 +20,7 @@ namespace AnimalZooApp.sql
                 name VARCHAR(50) NOT NULL);";
                 using var cmd = new NpgsqlCommand(createSpecies, conn);
                 cmd.ExecuteNonQuery();
-                Console.WriteLine("Species table created successfully.")
+                Console.WriteLine("Species table created successfully.");
             }
             catch (NpgsqlException ex)
             {
@@ -114,7 +114,7 @@ namespace AnimalZooApp.sql
                 id Serial PRIMARY KEY,
                 animal_id INT NOT NULL REFERENCES animals(id),
                 keeper_id INT NOT NULL REFERENCES keepers(id),
-                food VARCHAT(50),
+                food VARCHAR(50),
                 fed_at TIMESTAMP DEFAULT NOW()
                 );
                 ";

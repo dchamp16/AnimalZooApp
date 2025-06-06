@@ -30,8 +30,31 @@ class Program
         // CreateTables.CreateFeedingTable(zooConnString);
         // Console.WriteLine("All tables created successfully.");
 
-        TestTable.SelectAllTablesTest(zooConnString);
-        Console.WriteLine("All tables selected successfully.");
+        // testing purposes for tables
+        // TestTable.SelectAllTablesTest(zooConnString);
+        // Console.WriteLine("All tables selected successfully.");
+
+
+        Console.WriteLine("Choose number:\n1. Animal\n2. Species\n3. Habitat\n4. Keeper\n5. Feeding");
+        int choice = int.Parse(Console.ReadLine() ?? "0");
+
+        switch (choice)
+        {
+            case 1:
+                CrudAnimal.AddAnimal(zooConnString, "Lion", 1, 1);
+                Console.WriteLine("Animal added successfully.");
+                break;
+            case 2:
+                Console.WriteLine("Adding a species...");
+                Console.Write("Enter species name: ");
+                string speciesName = Console.ReadLine();
+                CrudSpecies.AddSpecies(zooConnString, speciesName);
+                Console.WriteLine("Species added successfully.");
+                break;
+            default:
+                Console.WriteLine("Invalid choice.");
+                break;
+        }
 
 
 

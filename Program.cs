@@ -34,27 +34,45 @@ class Program
         // TestTable.SelectAllTablesTest(zooConnString);
         // Console.WriteLine("All tables selected successfully.");
 
+        string choices = "";
+        Console.WriteLine("Add or Delete");
 
-        Console.WriteLine("Choose number:\n1. Animal\n2. Species\n3. Habitat\n4. Keeper\n5. Feeding");
-        int choice = int.Parse(Console.ReadLine() ?? "0");
-
-        switch (choice)
+        switch (Console.ReadLine()?.ToLower())
         {
-            case 1:
-                CrudAnimal.AddAnimal(zooConnString, "Lion", 1, 1);
-                Console.WriteLine("Animal added successfully.");
+            case "add":
+                Console.WriteLine("Choose number:\n1. Animal\n2. Species\n3. Habitat\n4. Keeper\n5. Feeding");
+                int choice = int.Parse(Console.ReadLine() ?? "0");
+
+                switch (choice)
+                {
+                    case 1:
+                        CrudAnimal.AddAnimal(zooConnString, "Lion", 1, 1);
+                        Console.WriteLine("Animal added successfully.");
+                        break;
+                    case 2:
+                        Console.WriteLine("Adding a species...");
+                        Console.Write("Enter species name: ");
+                        string speciesName = Console.ReadLine();
+                        CrudSpecies.AddSpecies(zooConnString, speciesName);
+                        Console.WriteLine("Species added successfully.");
+                        break;
+                    default:
+                        Console.WriteLine("Invalid choice.");
+                        break;
+                }
                 break;
-            case 2:
-                Console.WriteLine("Adding a species...");
-                Console.Write("Enter species name: ");
-                string speciesName = Console.ReadLine();
-                CrudSpecies.AddSpecies(zooConnString, speciesName);
-                Console.WriteLine("Species added successfully.");
+            case "delete":
+                Console.WriteLine("deleing species");
+                Console.Write("Enter species ID to delete: ");
+                int speciesId = int.Parse(Console.ReadLine() ?? "0");
+                CrudSpecies.DeleteSpecies(zooConnString, speciesId);
+                Console.WriteLine("Species deleted successfully.");
                 break;
             default:
                 Console.WriteLine("Invalid choice.");
-                break;
+                return;
         }
+
 
 
 

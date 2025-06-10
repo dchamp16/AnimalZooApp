@@ -35,7 +35,7 @@ class Program
         // Console.WriteLine("All tables selected successfully.");
 
         string choices = "";
-        Console.WriteLine("Add or Delete");
+        Console.WriteLine("Add || Delete || Update");
 
         switch (Console.ReadLine()?.ToLower())
         {
@@ -62,11 +62,19 @@ class Program
                 }
                 break;
             case "delete":
-                Console.WriteLine("deleing species");
+                Console.WriteLine("deleting species");
                 Console.Write("Enter species ID to delete: ");
                 int speciesId = int.Parse(Console.ReadLine() ?? "0");
                 CrudSpecies.DeleteSpecies(zooConnString, speciesId);
                 Console.WriteLine("Species deleted successfully.");
+                break;
+            case "update":
+                // Implement update logic here
+                Console.Write("Enter species ID to update: ");
+                int updateSpeciesId = int.Parse(Console.ReadLine() ?? "0");
+                Console.Write("Enter new species name: ");
+                string newSpeciesName = Console.ReadLine();
+                CrudSpecies.UpdateSpecies(zooConnString, updateSpeciesId, newSpeciesName);
                 break;
             default:
                 Console.WriteLine("Invalid choice.");

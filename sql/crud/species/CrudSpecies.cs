@@ -45,5 +45,43 @@ namespace AnimalZooApp.sql
                 Console.WriteLine($"Error deleting species: {ex.Message}");
             }
         }
+
+        public static void UpdateSpecies(string connString, int speciesId, string newSpeciesName)
+        {
+            try
+            {
+                using var conn = new NpgsqlConnection(connString);
+                conn.Open();
+                Console.WriteLine("UpdateSpecies Connected to the PostgreSQL database successfully.");
+
+                string updateSpecies = @"
+            UPDATE species
+            SET name = @newSpeciesName
+            WHERE id = @speciesId;";
+
+                using var cmd = new NpgsqlCommand(updateSpecies, conn);
+                cmd.Parameters.AddWithValue("speciesId", speciesId);
+                cmd.Parameters.AddWithValue("newSpeciesName", newSpeciesName);
+
+                int rowAffected = cmd.ExecuteNonQuery();
+
+                if (rowAffected == 0)
+                {
+                    Console.WriteLine($"Species with id {speciesId} does not exist.");
+                }
+                else
+                {
+                    Console.WriteLine("Species updated successfully.");
+                }
+            }
+            catch (NpgsqlException ex)
+            {
+                Console.WriteLine($"Error updating species: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An unexpected error occurred: {ex.Message}");
+            }
+        }
     }
 }
